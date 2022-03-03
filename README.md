@@ -1,0 +1,37 @@
+## ファイルの構成について
+
+* analysis_what_you_hate
+  * cms
+    * migrations(デフォ)
+    * static(cssとか写真とかをいれる)
+      * css(cssファイルを入れる)
+      * images(写真を入れる)
+    * templates(htmlを入れる)
+      * base.html(それぞれの共通部分を抽出したもの)
+      * login.html(login画面)
+      * signup.html(signup画面)
+      * top.html(トップ)
+      * user_delete.html(ユーザーの削除)
+      * user_detail.html(ユーザーの詳細)
+      * user_list.html(ユーザーのリスト)
+      * user_upgrade.html(ユーザー情報のアップグレード)
+    * __init__.py(デフォ)
+    * admin.py(デフォ)
+    * apps.py(デフォ)
+    * forms.py(入力されたユーザー情報の共有かな?)
+    * mixins.py(ユーザーのアクセス権限)
+    * models.py(ユーザーモデル)
+    * test.py(空)
+    * urls.py(URLをいじるときはここをいじる)
+    * views.py(Djangoでは汎用ビュー（generic view）と言ってよく使うようなビューは全て用意されていて、それを継承するためにクラスを使います。)
+  * config(あまりいじらない)
+    * __init__.py
+    * settings.py(時間とか国とかをセッティングする)
+    * urls.py(ここはいじらない)
+    * wsgi.py
+  * docker-compose.yml
+  * Dockerfile
+  * main.py
+  * manage.py
+  * README.md(これ)
+  * requirements.txt
