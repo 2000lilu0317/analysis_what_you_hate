@@ -25,7 +25,7 @@ SECRET_KEY = 'saat6oxjnb1n_oc6jf!(0&!tr7k3chaa6iaf^f_ir3dk4c^9#7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0']
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost']
 
 AUTH_USER_MODEL = 'cms.User'
 LOGIN_URL = 'cms:login'
