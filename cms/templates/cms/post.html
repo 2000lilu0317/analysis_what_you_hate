@@ -7,7 +7,7 @@
     <div class="container is-mobile">
         <h1 class="title is-4">嫌いなツイートの投稿</h1>
         <hr>
-        <form method="post" action="">
+        <form method="post">
             {% csrf_token %}
             <div class="field">
                 <label class="label">その1</label>
@@ -18,10 +18,21 @@
                 <input class="input" type="text" name="no_two" placeholder="むかつくツイートを入力してください！">
             </div>
             <div class="field">
+            <div class="navbar-top">
+            <p class="control">
+            <a class="bd-tw-button button" data-social-network="Twitter" data-social-action="tweet" data-social-target="https://bulma.io" target="_blank" href="https://twitter.com/">
+              <span class="icon">
+                <i class="fab fa-twitter"></i>
+              </span>
+              <span>
+                嫌いなツイートを探す
+              </span>
+            </a>
+            </p></div></div>
+            <div class="field">
                 <p class="control">
-                <button class="button is-success">
-                診断
-                </button>
+                    <input type="submit" value="診断" class="button is-success">
+                    <input type="hidden" name="next" value="{{next}}" >
                 </p>
             </div>
 

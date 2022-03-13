@@ -67,10 +67,11 @@ class UserDelete(OnlyYouMixin, DeleteView):
     success_url = reverse_lazy('cms:top')
 
 class Post(CreateView):
-    model = UserModel
+    model = PostModel
     template_name = 'cms/post.html'
     fields = ('no_one', 'no_two')
-    #success_url = reverse_lazy('cms:top')
+    success_url = reverse_lazy('cms:top')
+
 
 class UserPost(OnlyYouMixin, UpdateView):
     model = UserModel

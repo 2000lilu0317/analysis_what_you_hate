@@ -113,5 +113,5 @@ class User(AbstractUser):
         swappable = "AUTH_USER_MODEL"
 
 class PostModel(models.Model):
-    no_one = models.CharField(max_length=50)
-    no_two = models.TextField()
+    no_one = models.CharField(max_length=50, blank=True)
+    no_two = models.CharField(max_length=50, blank=True)
