@@ -9,12 +9,14 @@ from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 from .mixins import OnlyYouMixin
 from .forms import (
-    LoginForm, UserCreateForm, UserUpdateForm,
+    LoginForm, UserCreateForm, UserUpdateForm,UserPostForm
 )
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import (
     CreateView, UpdateView, DeleteView,
 )
+from django.views.generic import ListView, CreateView
+from .models import PostModel
 
 UserModel = get_user_model()
 class UserCreate(CreateView):
@@ -63,3 +65,17 @@ class UserDelete(OnlyYouMixin, DeleteView):
     model = UserModel
     template_name = 'cms/user_delete.html'
     success_url = reverse_lazy('cms:top')
+
+class Post(CreateView):
+    model = UserModel
+    template_name = 'cms/post.html'
+    fields = ('no_one', 'no_two')
+    #success_url = reverse_lazy('cms:top')
+
+class UserPost(OnlyYouMixin, UpdateView):
+    model = UserModel
+    form_class = UserPostForm
+    template_name = 'cms/user_post.html'
+
+    def get_success_url(self):
+        return resolve_url('cms:user_detail', pk=self.kwargs['pk'])

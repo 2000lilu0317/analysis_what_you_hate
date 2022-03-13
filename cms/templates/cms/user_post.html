@@ -1,0 +1,30 @@
+{% extends 'cms/base.html' %}
+
+{% block title %}Login | {% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container is-mobile">
+        <h1 class="title is-4">嫌いなツイートの投稿</h1>
+        <hr>
+        <form method="post" action="">
+            {% csrf_token %}
+            <div class="field">
+                <label class="label">その1</label>
+                {{form.no_one}}
+            </div>
+            <div class="field">
+                <label class="label">その2</label>
+                 {{form.no_two}}
+            </div>
+            <div class="field">
+                <p class="control">
+                    <input type="submit" value="診断" class="button is-success">
+                    <input type="hidden" name="next" value="{{ next }}" >
+                </p>
+            </div>
+
+        </form>
+    </div>
+</section>
+{% endblock %}

@@ -4,3 +4,5 @@ mecab-python3
 pandas
 lightgbm
 scikit-learn
+psycopg2-binary>=2.8,<2.9
+psycopg2>=2.8,<2.9
