@@ -68,6 +68,8 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
 
     twitter = models.CharField(_('Twitter'), max_length=50, blank=True)
+    no_one = models.CharField(_('no_one'), max_length=50, blank=True)
+    no_two = models.CharField(_('no_two'), max_length=50, blank=True)
     is_staff = models.BooleanField(
         _('staff status'),
         default=False,
@@ -109,3 +111,7 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
 class User(AbstractUser):
     class Meta(AbstractUser.Meta):
         swappable = "AUTH_USER_MODEL"
+
+class PostModel(models.Model):
+    no_one = models.CharField(max_length=50)
+    no_two = models.TextField()

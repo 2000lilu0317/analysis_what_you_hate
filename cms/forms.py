@@ -24,14 +24,19 @@ class UserCreateForm(UserCreationForm):
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = UserModel
-        fields = ('username', 'first_name', 'last_name', 'email')
+        fields = ('username', 'first_name', 'last_name', 'email', 'twitter')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs['class'] = 'input'
 
-class UserUpdateForm(forms.ModelForm):
+class UserPostForm(forms.ModelForm):
     class Meta:
         model = UserModel
-        fields = ('username', 'first_name', 'last_name', 'email', 'twitter')
+        fields = ('no_one', 'no_two')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'input'
