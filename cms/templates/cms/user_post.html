@@ -1,0 +1,31 @@
+{% extends 'cms/base.html' %}
+
+{% block title %}Login | {% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container is-mobile">
+        <h1 class="title is-4">嫌いなツイートの投稿</h1>
+        <hr>
+        <form method="post" action="">
+            {% csrf_token %}
+            <div class="field">
+                <label class="label">その1</label>
+                <input class="input" type="text" name="no_two" placeholder="むかつくツイートを入力してください！">
+            </div>
+            <div class="field">
+                <label class="label">その2</label>
+                <input class="input" type="text" name="no_two" placeholder="むかつくツイートを入力してください！">
+            </div>
+            <div class="field">
+                <p class="control">
+                <button class="button is-success">
+                診断
+                </button>
+                </p>
+            </div>
+
+        </form>
+    </div>
+</section>
+{% endblock %}
