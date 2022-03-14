@@ -4,7 +4,7 @@ from train import WakatiMecab
 class ScoreGenerator():
     def __init__(self, text):
         self.text = [text]
-        self.paths = ['/code/model/tf_lgb_ill.pkl', 
+        self.paths = ['/code/model/tf_lgb_nega.pkl', 
                       '/code/model/tf_lgb_mount.pkl',
                       '/code/model/tf_lgb_ill.pkl']
         self.models = []
