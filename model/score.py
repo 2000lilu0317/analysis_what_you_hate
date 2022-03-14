@@ -1,5 +1,5 @@
 import pickle
-from train import WakatiMecab
+from model.train import WakatiMecab
 
 class ScoreGenerator():
     def __init__(self, text):
