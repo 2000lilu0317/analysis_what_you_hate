@@ -1,9 +1,10 @@
+from pyexpat import model
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.views import (
     LoginView, LogoutView,
 )
 from django.http import HttpResponseRedirect
-from django.shortcuts import resolve_url
+from django.shortcuts import render, resolve_url
 from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
@@ -17,6 +18,7 @@ from django.views.generic.edit import (
 )
 from django.views.generic import ListView, CreateView
 from .models import PostModel
+from model.score import ScoreGenerator
 
 UserModel = get_user_model()
 class UserCreate(CreateView):
@@ -72,6 +74,23 @@ class Post(CreateView):
     fields = ('no_one', 'no_two')
     success_url = reverse_lazy('cms:top')
 
+    def post(self, request, *args, **kwargs):
+        #スコアパラメータの計算
+        score_one = ScoreGenerator(request.POST['no_one']).calculate_score()
+        score_two = ScoreGenerator(request.POST['no_two']).calculate_score()
+        score_values = []
+
+        #2つの文章のスコアを計算し，平均をとる
+        for one, two in zip(score_one.values(), score_two.values()):
+            score = (one + two) / 2
+            score_values.append(score)
+
+        params = {}
+        labels = ['negative', 'mount', 'ill']
+        for label, value in zip(labels, score_values):
+            params[label] = value
+
+        return render(request, 'cms/result.html', params)
 
 class UserPost(OnlyYouMixin, UpdateView):
     model = UserModel
