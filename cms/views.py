@@ -99,3 +99,25 @@ class UserPost(OnlyYouMixin, UpdateView):
 
     def get_success_url(self):
         return resolve_url('cms:user_detail', pk=self.kwargs['pk'])
+
+    def post(self, request, *args, **kwargs):
+        contents = UserPost.model.objects
+        no_one_contents = contents.values_list('no_one', flat=True).get(pk=self.kwargs['pk'])
+        no_two_contents = contents.values_list('no_one', flat=True).get(pk=self.kwargs['pk'])
+        score_values = [0] * 3
+        for no_one, no_two in zip(no_one_contents, no_two_contents):    
+            score_one = ScoreGenerator(request.POST[no_one]).calculate_score()
+            score_two = ScoreGenerator(request.POST[no_two]).calculate_score()
+
+            idx = 0
+            for one, two in zip(score_one.values(), score_two.values()):
+                score = (one + two) / 2
+                score_values[idx] += score
+                idx += 1
+
+        params = {}
+        labels = ['negative', 'mount', 'ill']
+        for label, value in zip(labels, score_values):
+            params[label] = value
+
+        return render(request, 'cms/result.html', params)
