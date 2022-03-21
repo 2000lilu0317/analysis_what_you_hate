@@ -2,6 +2,8 @@
 
 {% block title %}Result | {% endblock %}
 
+{% load static %}
+
 {% block content %}
 <section class="section">
     <div class="container is-mobile">
@@ -9,11 +11,17 @@
         <hr>
         <div class="field">
             <div class="box">
-                <ul>
-                    <li>否定的 {{negative}}</li>
-                    <li>自慢 {{mount}}</li>
-                    <li>気持ち悪い {{ill}}</li>
-                </ul>
+                <div style="position:relative; width:500px; height:500px;">
+                    <canvas id="chart" width="400px" height="600px"></canvas>
+                    <!-- スコアチャートを表示するためのスクリプト-->
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.js"></script>
+                    <script>
+                      var nega_score  = JSON.parse("{{negative | safe}}");
+                      var mount_score = JSON.parse("{{mount | safe}}");
+                      var ill_score   = JSON.parse("{{ill | safe}}");
+                    </script>
+                    <script src="{% static 'cms/display.js' %}"></script>
+                </div>
             </div>
         </div>
         <div class="field">
