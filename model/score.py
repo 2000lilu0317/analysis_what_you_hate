@@ -22,9 +22,8 @@ class ScoreGenerator():
 
         return text_vec
 
-    """
-    モデルを読み込みスコアを返す関数
-    """
+    
+    #モデルを読み込みスコアを返す関数
     def calculate_score(self):
         text_vec = self.text2vec()
 
