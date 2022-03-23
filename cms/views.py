@@ -7,7 +7,6 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, resolve_url
 from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
-from django.views.generic.list import ListView
 from .mixins import OnlyYouMixin
 from .forms import (
     LoginForm, UserCreateForm, UserUpdateForm,UserPostForm
@@ -16,8 +15,8 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import (
     CreateView, UpdateView, DeleteView,
 )
-from django.views.generic import ListView, CreateView
-from .models import PostModel
+from django.views.generic import ListView, CreateView, FormView
+from .models import PostModel,UserPostModel
 from model.score import ScoreGenerator
 
 UserModel = get_user_model()
@@ -99,6 +98,31 @@ class UserPost(OnlyYouMixin, UpdateView):
 
     def get_success_url(self):
         return resolve_url('cms:user_detail', pk=self.kwargs['pk'])
+
+    def post(self, request, *args, **kwargs):
+        #スコアパラメータの計算
+        score_one = ScoreGenerator(request.POST['no_one']).calculate_score()
+        score_two = ScoreGenerator(request.POST['no_two']).calculate_score()
+        score_values = []
+
+        #2つの文章のスコアを計算し，平均をとる
+        for one, two in zip(score_one.values(), score_two.values()):
+            score = (one + two) / 2
+            score_values.append(score)
+
+        params = {}
+        labels = ['negative', 'mount', 'ill']
+        for label, value in zip(labels, score_values):
+            params[label] = value
+
+        return render(request, 'cms/result.html', params)
+
+
+class UserPostView(OnlyYouMixin,CreateView):
+    model = UserPostModel
+    template_name = 'cms/user_post.html'
+    fields = ('no_one', 'no_two')
+    success_url = reverse_lazy('cms:top')
 
     def post(self, request, *args, **kwargs):
         #スコアパラメータの計算

@@ -10,6 +10,7 @@ from django.core.mail import send_mail
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth import get_user_model
 
 
 # User-related
@@ -115,3 +116,8 @@ class User(AbstractUser):
 class PostModel(models.Model):
     no_one = models.CharField(max_length=280, blank=True)
     no_two = models.CharField(max_length=280, blank=True)
+
+class UserPostModel(models.Model):
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    no_one = models.CharField(_('no_one'), max_length=280, blank=True)
+    no_two = models.CharField(_('no_one'), max_length=280, blank=True)
